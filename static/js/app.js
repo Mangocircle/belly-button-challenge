@@ -1,10 +1,10 @@
-// demoInfo function for displaying demographic info about the test subject
+// demoInfo function 
 function demoInfo(subjectID) {
     d3.json(url).then((data) => {
-      // filter the data to get the selected subject's data
+      // filter
       let subjectData = data.metadata.filter(x => x.id == subjectID);
   
-      // update the HTML text on the demographic info card
+      // update HTML text
       const sample_metadata = document.getElementById('sample-metadata');
       sample_metadata.innerHTML = `id: ${String(subjectData[0].id)} 
       <br>ethnicity: ${subjectData[0].ethnicity}
@@ -16,13 +16,13 @@ function demoInfo(subjectID) {
     })
   }
   
-  // buildCharts function for creating the bar chart and bubble chart
+  // buildCharts function
   function buildCharts(subjectID) {
     d3.json(url).then((data) => {
-      // filter the data to get the selected subject's data
+      // filter
       let subjectData = data.samples.filter(x => x.id == subjectID);
   
-      // Create bar chart
+      // bar chart
       let chartData = [{
         x: subjectData[0].sample_values.slice(0, 10).reverse(),
         y: subjectData[0].otu_ids.slice(0, 10).reverse(),
@@ -39,7 +39,7 @@ function demoInfo(subjectID) {
   
       Plotly.newPlot("bar", chartData, layout);
   
-      // Create bubble chart
+      // bubble chart
       var trace1 = {
         x: subjectData[0].otu_ids,
         y: subjectData[0].sample_values,
@@ -60,7 +60,7 @@ function demoInfo(subjectID) {
             text: 'OTU ID'
           }
         },
-        height: 600,
+        height: 800,
         width: 800
       };
   
@@ -68,14 +68,14 @@ function demoInfo(subjectID) {
     })
   }
   
-  // optionChanged function to feed into buildCharts and demoInfo functions
-  //   to update visualizations based on selected subject ID
+  // optionChanged function
+  //   update visualizations on selection
   function optionChanged(subjectID) {
     buildCharts(subjectID);
     demoInfo(subjectID);
   }
   
-  // init function for default visualizations and creating dropdown
+  // init function for visualizations and dropdown
   function init(subjectID) {
     d3.json(url).then((data) => {
       let selector = d3.select("#selDataset");
